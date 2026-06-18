@@ -1,0 +1,5 @@
+PBC_ERROR_MESSAGE="Incorrect Parameter, Please use --help for all the listed functions."
+TEST_PASSED_ERRORCASE= "Test passed error case: Expected error message found."
+TEST_FAILED_ERRORCASE="Test failed error case: Status does not match expected output"
+TEST_PASSED_GENERIC="All tests passed successfully!"
+TEST_FAILED_GENERIC="One or more tests failed."

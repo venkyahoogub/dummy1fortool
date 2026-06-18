@@ -1,0 +1,10 @@
+pyinstaller==6.14.2
+python-dotenv==1.1.1
+protobuf==6.31.1
+grpcio==1.74.0
+grpcio-tools==1.74.0
+requests==2.32.5
+ttkbootstrap==1.20.3
+opencv-python==4.12.0.88
+numpy==2.2.6
+pillow==12.2.0
