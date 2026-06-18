@@ -40,15 +40,18 @@ class HeartbeatManager:
 
         while not self._stop_event.wait(self.interval):
             try:
+                # Construct a proper keep-alive message and set the EventType field.
                 msg = UvcServices_pb2.UvcUicCommMessage()
-                evt = UvcServices_pb2.UvcUicCommMessage.SystemKeepAliveEvent()
-                msg.EVTKeepAlive.CopyFrom(evt)
+                # Ensure the server sees this as an actual KEEP_ALIVE event
+                msg.EVTKeepAlive.EventType = UvcServices_pb2.UvcUicCommMessage.EVENT_KEEP_ALIVE
+
                 msg_bytes = msg.SerializeToString()
 
                 with self._send_lock:
                     if self.connection.is_connected():
-                        length = struct.pack("<I", len(msg_bytes))
-                        self.connection.sock.sendall(length + msg_bytes)
+                        # Use the connection's send_message so the length-prefixing is
+                        # handled consistently in one place.
+                        self.connection.send_message(msg_bytes)
                         self._count += 1
                         logger.debug(f"Heartbeat #{self._count}")
 
